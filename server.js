@@ -79,7 +79,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.listen(8880);
+app.listen(process.env.PORT);
 // console.log(`server listen to http://${host}:${port}/images`);
 
 // var open = require("open");
