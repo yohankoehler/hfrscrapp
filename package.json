@@ -36,5 +36,9 @@
   "devDependencies": {
     "bower": "^1.8.8",
     "open": "0.0.5"
+  },
+  "engines": {
+    "node": "16.14.2",
+    "npm": "8.6.0"
   }
 }
