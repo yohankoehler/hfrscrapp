@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{{title }}</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/components/Justified-Gallery/dist/css/justifiedGallery.min.css"> {{#if ENV_DEVELOPMENT}}
+  <script src="http://localhost:35729/livereload.js"></script>
+  {{/if}}
+</head>
+
+<body>
+
+
+  {{{body}}}
+
+
+  <link rel="stylesheet" href="/components/magnific-popup/dist/magnific-popup.css">
+
+  <script src="/components/jquery/dist/jquery.min.js"></script>
+  <script src="/components/Justified-Gallery/dist/js/jquery.justifiedGallery.min.js"></script>
+  <script src="/components/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+  <!-- script src="/components/blazy/blazy.min.js"></script -->
+  <script>
+   $("#mygallery").justifiedGallery({
+      rowHeight: '200px'
+    });
+
+    $("#mygalleryhot").justifiedGallery({
+      rowHeight: '200px'
+    });
+
+    function initPopup($el) {
+      //$('.image-link').magnificPopup({
+      $el.magnificPopup({
+        type: 'image',
+        mainClass: 'mfp-with-zoom', // this class is for CSS animation below
+
+        zoom: {
+          enabled: true, // By default it's false, so don't forget to enable it
+          duration: 300, // duration of the effect, in milliseconds
+          easing: 'ease-in-out', // CSS transition easing function
+          opener: function(openerElement) {
+            return openerElement.is('img') ? openerElement : openerElement.find('img');
+          }
+        },
+
+        image: {
+          verticalFit: true,
+          titleSrc: function(item) {
+            return item.el.attr('title') + ' &middot; <a class="image-source-link" href="' + item.el.attr('data-posthref') + '" target="_blank">Voir le message</a>';
+          }
+        },
+
+        gallery: {
+          enabled: true
+        }
+      });
+
+
+    }
+
+    initPopup($('.image-link'));
+
+    function loadMore(){
+        var page = $($('.page-current').get(0));
+        var h = window.location.href.match('hot') ? 'hot/' : '';
+        var url = '/images/'+ h +'page/' + (parseInt(page.text()) - 1);
+
+        $.get(url, function(data) {
+          var $els = $(data).find('.image-link');
+
+          $('#mygallery').append($els);
+          initPopup($els);
+
+          $('#mygallery').justifiedGallery('norewind');
+
+          $('.page-current').text(parseInt(page.text()) - 1);
+        });
+    }
+
+    $(window).scroll(function() {
+      if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+        loadMore();
+
+      }
+    });
+
+    $('#load-more').click(function(){ loadMore(); });
+  </script>
+</body>
+
+</html>

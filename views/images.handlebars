@@ -1,0 +1,20 @@
+
+	<a href="/images/hot/page/{{page}}">view spoilers only</a>
+
+	<span class="page-prev"><a href="{{pagePrev}}"><</a></span>
+	<span class="page-current">{{page}}</span>
+	<span class="page-next"><a href="{{pageNext}}">></a></span>
+
+	<div class="block" id="mygallery">
+		{{#each imagesObj}}
+	    <a class="image-link" data-posthref="{{postHref}}" href="{{src}}" title="p.{{page}}" data-page="{{page}}">
+	      <img class="b-lazy {{#if spoiler}}spoiler{{/if}} mfp-img" src="{{src}}"  />
+	    </a>
+	  {{/each}}
+	</div>
+
+
+
+	<span class="page-prev"><a href="{{pagePrev}}"><</a></span>
+	<span class="page-current">{{page}}</span>
+	<span class="page-next"><a href="{{pageNext}}">></a></span>

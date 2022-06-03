@@ -1,0 +1,11 @@
+<span class="page-current" style="display : none">{{page}}</span>
+
+
+<div class="block" id="mygallery">
+  {{#each imagesHot}}
+    <a class="image-link" data-posthref="{{postHref}}" href="{{src}}" title="p.{{page}}" data-page="{{page}}">
+      <img class="b-lazy" src="{{src}}"  />
+    </a>
+  {{/each}}
+</div>
+<button id="load-more">more...</button>

@@ -1,0 +1,17 @@
+	<a href="../../page/{{page}}">View all</a>
+
+	<span class="page-prev"><a href="{{pagePrev}}"><</a></span>
+	<span class="page-current">{{page}}</span>
+	<span class="page-next"><a href="{{pageNext}}">></a></span>
+
+	<div class="block" id="mygalleryhot">
+		{{#each imagesHot}}
+			<a class="image-link" href="{{this}}">
+				<img class="b-lazy" src="{{this}}" />
+			</a>
+		{{/each}}
+	</div>
+
+	<span class="page-prev"><a href="{{pagePrev}}"><</a></span>
+	<span class="page-current">{{page}}</span>
+	<span class="page-next"><a href="{{pageNext}}">></a></span>
