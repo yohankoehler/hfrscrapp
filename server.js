@@ -40,10 +40,7 @@ app.use(
 );
 app.use(cookieParser());
 
-process.env.PWD = process.cwd();
-app.use(express.static(path.join(process.env.PWD, "public")));
-
-// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public")));
 app.use("/", routes);
 app.use("/users", users);
 app.use("/images", images);
@@ -82,7 +79,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.listen(process.env.PORT);
+app.listen(8880);
 // console.log(`server listen to http://${host}:${port}/images`);
 
 // var open = require("open");
