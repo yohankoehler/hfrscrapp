@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <title>{{title }}</title>
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/components/Justified-Gallery/dist/css/justifiedGallery.min.css"> {{#if ENV_DEVELOPMENT}}
+  <link rel="stylesheet" href="/scripts/justifiedGallery/dist/css/justifiedGallery.min.css"> {{#if ENV_DEVELOPMENT}}
   <script src="http://localhost:35729/livereload.js"></script>
   {{/if}}
 </head>
@@ -17,11 +17,15 @@
   {{{body}}}
 
 
-  <link rel="stylesheet" href="/components/magnific-popup/dist/magnific-popup.css">
+  <link rel="stylesheet" href="/scripts/magnific-popup/dist/magnific-popup.css">
 
-  <script src="/components/jquery/dist/jquery.min.js"></script>
-  <script src="/components/Justified-Gallery/dist/js/jquery.justifiedGallery.min.js"></script>
-  <script src="/components/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script src="/scripts/justifiedGallery/dist/js/jquery.justifiedGallery.min.js"></script>
+  <script src="/scripts/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
   <!-- script src="/components/blazy/blazy.min.js"></script -->
   <script>
    $("#mygallery").justifiedGallery({
