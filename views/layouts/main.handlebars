@@ -30,6 +30,9 @@
   <script>
    $("#mygallery").justifiedGallery({
       rowHeight: '200px'
+    }).on('jg.complete', function () {
+    initPopup($('.image-link'));
+
     });
 
     $("#mygalleryhot").justifiedGallery({
@@ -66,7 +69,6 @@
 
     }
 
-    initPopup($('.image-link'));
 
     function loadMore(){
         var page = $($('.page-current').get(0));
