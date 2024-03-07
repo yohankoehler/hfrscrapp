@@ -1,3 +1,6 @@
 node_modules
 bower_components
 public/components
+
+# Local Netlify folder
+.netlify

@@ -9,8 +9,8 @@ var exphbs = require("express-handlebars");
 var routes = require("./routes/index");
 var users = require("./routes/user");
 var images = require("./routes/images");
-var port = 8880;
-var host = "0.0.0.0";
+var port = 8080;
+// var host = "0.0.0.0";
 
 var app = express();
 
@@ -81,8 +81,8 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.listen(process.env.PORT);
-// console.log(`server listen to http://${host}:${port}/images`);
+app.listen(process.env.PORT || port);
+// console.log(`server listen to ${process.env.PORT || port}`);
 
 // var open = require("open");
-// open(`http://${host}:${port}/images`);
+// open(`http://${host}:${process.env.PORT || port}/images`);
