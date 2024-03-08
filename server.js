@@ -5,6 +5,7 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+const serverless = require("serverless-http");
 
 var routes = require("./routes/index");
 var users = require("./routes/user");
@@ -42,7 +43,6 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", routes);
-app.use("/users", users);
 app.use("/images", images);
 
 app.use("/scripts", express.static(__dirname + "/node_modules/"));
@@ -81,7 +81,9 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.listen(process.env.PORT || port);
+app.listen(3000);
+
+module.exports.handler = serverless(app);
 // console.log(`server listen to ${process.env.PORT || port}`);
 
 // var open = require("open");
