@@ -81,8 +81,8 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.listen(3000);
-
+// app.listen(3000);
+module.exports = app;
 module.exports.handler = serverless(app);
 // console.log(`server listen to ${process.env.PORT || port}`);
 
