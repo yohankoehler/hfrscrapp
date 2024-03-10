@@ -7,8 +7,8 @@ var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 const serverless = require("serverless-http");
 
-var routes = require("../routes/index");
-var images = require("../routes/images");
+var routes = require(path.join(__dirname, "../../routes/index"));
+var images = require(path.join(__dirname, "../../routes/images"));
 
 var app = express();
 
@@ -18,12 +18,12 @@ app.engine(
   "handlebars",
   exphbs({
     defaultLayout: "main",
-    partialsDir: [path.join(__dirname, "../views/partials")],
+    partialsDir: [path.join(__dirname, "../../views/partials")],
   })
 );
 
 app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "../views"));
+app.set("views", path.join(__dirname, "../../views"));
 
 var env = process.env.NODE_ENV || "development";
 app.locals.ENV = env;
@@ -38,8 +38,11 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "../public")));
-app.use("/scripts", express.static(path.join(__dirname, "../node_modules/")));
+app.use(express.static(path.join(__dirname, "../../public")));
+app.use(
+  "/scripts",
+  express.static(path.join(__dirname, "../../node_modules/"))
+);
 app.use("/", routes);
 app.use("/images", images);
 
