@@ -3,6 +3,9 @@
   command = "npm i"
   functions = "express"
 
+[functions]
+  directory = "express"
+
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
   #[[redirects]]
