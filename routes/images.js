@@ -7,6 +7,7 @@ var hfrImages = require("../scripts/hfrimages");
 var gallery = require("../scripts/gallery");
 
 express().use(express.static(path.join(__dirname, "public")));
+express().use("/.netlify/functions/server", router);
 
 router.get("/", function (req, res) {
   var hf = new hfrImages({ page: "last" });
