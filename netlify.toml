@@ -4,6 +4,7 @@
   functions = "express"
 
 [functions]
+  external_node_modules = ["express"]
   directory = "express"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
