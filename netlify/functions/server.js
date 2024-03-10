@@ -7,8 +7,8 @@ var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 const serverless = require("serverless-http");
 
-var routes = require(path.join(__dirname, "../../routes/index"));
-var images = require(path.join(__dirname, "../../routes/images"));
+var routes = require(path.join(__dirname, "routes/index"));
+var images = require(path.join(__dirname, "routes/images"));
 
 var app = express();
 
