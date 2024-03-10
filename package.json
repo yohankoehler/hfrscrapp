@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "node server-local.js",
     "setup": "bower install"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "morgan": "^1.9.1",
     "q": "^1.5.1",
     "serve-favicon": "^2.5.0",
+    "serverless-http": "^3.2.0",
     "x-ray": "^2.3.3"
   },
   "devDependencies": {

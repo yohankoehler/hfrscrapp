@@ -7,11 +7,8 @@ var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 const serverless = require("serverless-http");
 
-var routes = require("./routes/index");
-var users = require("./routes/user");
-var images = require("./routes/images");
-var port = 8080;
-// var host = "0.0.0.0";
+var routes = require("../routes/index");
+var images = require("../routes/images");
 
 var app = express();
 
@@ -21,11 +18,12 @@ app.engine(
   "handlebars",
   exphbs({
     defaultLayout: "main",
-    partialsDir: ["views/partials/"],
+    partialsDir: [path.join(__dirname, "../views/partials")],
   })
 );
-app.set("views", path.join(__dirname, "views"));
+
 app.set("view engine", "handlebars");
+app.set("views", path.join(__dirname, "../views"));
 
 var env = process.env.NODE_ENV || "development";
 app.locals.ENV = env;
@@ -41,11 +39,10 @@ app.use(
 );
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../public")));
+app.use("/scripts", express.static(path.join(__dirname, "../node_modules/")));
 app.use("/", routes);
 app.use("/images", images);
-
-app.use("/scripts", express.static(__dirname + "/node_modules/"));
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -54,11 +51,8 @@ app.use(function (req, res, next) {
   next(err);
 });
 
-/// error handlers
-
 // development error handler
 // will print stacktrace
-
 if (app.get("env") === "development") {
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
@@ -81,10 +75,5 @@ app.use(function (err, req, res, next) {
   });
 });
 
-// app.listen(3000);
 module.exports = app;
 module.exports.handler = serverless(app);
-// console.log(`server listen to ${process.env.PORT || port}`);
-
-// var open = require("open");
-// open(`http://${host}:${process.env.PORT || port}/images`);
