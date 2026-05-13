@@ -2,6 +2,7 @@
   external_node_modules = ["express", "cheerio"]
   node_bundler = "esbuild"
   included_files = ["views/**", "public/**"]
+  timeout = 26
 [[redirects]]
   force = true
   from = "/*"

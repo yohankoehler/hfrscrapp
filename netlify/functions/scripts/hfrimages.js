@@ -2,7 +2,7 @@
 
 const cheerio = require('cheerio');
 
-const BASE_URL = 'http://forum.hardware.fr/hfr/Discussions/Loisirs/images-etonnantes-cons-sujet_78667_';
+const BASE_URL = 'https://forum.hardware.fr/hfr/Discussions/Loisirs/images-etonnantes-cons-sujet_78667_';
 const FIRST_PAGE_URL = BASE_URL + '1.htm';
 
 const BLACKLIST_RE = /forum-images\.hardware\.fr|forum\.hardware\.fr|hit\.xiti/i;
@@ -17,22 +17,18 @@ function HFRImages(params) {
 
 HFRImages.prototype = {
 
-	getPage: async function () {
-		if (this.currentPage !== 'last') {
-			return this.currentPage;
-		}
-
+	getLastPage: async function () {
 		const res = await fetch(FIRST_PAGE_URL);
 		const html = await res.text();
 		const $ = cheerio.load(html);
 		const pageLinks = $('.fondForum2PagesHaut .left a');
-		const lastPage = parseInt($(pageLinks[pageLinks.length - 1]).text().trim());
-		this.currentPage = lastPage;
-		return lastPage;
+		return parseInt($(pageLinks[pageLinks.length - 1]).text().trim());
 	},
 
 	getImages: async function () {
-		await this.getPage();
+		if (this.currentPage === 'last') {
+			this.currentPage = await this.getLastPage();
+		}
 
 		const url = BASE_URL + this.currentPage + '.htm';
 		const res = await fetch(url);
