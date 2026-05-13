@@ -1,5 +1,5 @@
 [functions]
-  external_node_modules = ["express"]
+  external_node_modules = ["express", "cheerio", "node-fetch"]
   node_bundler = "esbuild"
   included_files = ["views/**", "public/**"]
 [[redirects]]

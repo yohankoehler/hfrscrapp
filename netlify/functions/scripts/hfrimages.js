@@ -1,6 +1,7 @@
 'use strict';
 
-const { chromium } = require('playwright');
+const fetch = require('node-fetch');
+const cheerio = require('cheerio');
 
 const BASE_URL = 'http://forum.hardware.fr/hfr/Discussions/Loisirs/images-etonnantes-cons-sujet_78667_';
 const FIRST_PAGE_URL = BASE_URL + '1.htm';
@@ -22,45 +23,39 @@ HFRImages.prototype = {
 			return this.currentPage;
 		}
 
-		const browser = await chromium.launch();
-		try {
-			const page = await browser.newPage();
-			await page.goto(FIRST_PAGE_URL);
-			const pages = await page.$$eval('.fondForum2PagesHaut .left a', els => els.map(el => el.textContent.trim()));
-			this.currentPage = parseInt(pages[pages.length - 1]);
-			return this.currentPage;
-		} finally {
-			await browser.close();
-		}
+		const res = await fetch(FIRST_PAGE_URL);
+		const html = await res.text();
+		const $ = cheerio.load(html);
+		const pageLinks = $('.fondForum2PagesHaut .left a');
+		const lastPage = parseInt($(pageLinks[pageLinks.length - 1]).text().trim());
+		this.currentPage = lastPage;
+		return lastPage;
 	},
 
 	getImages: async function () {
 		await this.getPage();
 
 		const url = BASE_URL + this.currentPage + '.htm';
+		const res = await fetch(url);
+		const html = await res.text();
+		const $ = cheerio.load(html);
 
-		const browser = await chromium.launch();
-		try {
-			const page = await browser.newPage();
-			await page.goto(url);
+		const posts = [];
+		$('.messagetable').each((_, row) => {
+			const href = $(row).find('.message .right a').attr('href') || null;
+			const images = $(row).find('img').map((_, el) => $(el).attr('src')).get();
+			const imagesHot = $(row).find('table.spoiler img').map((_, el) => $(el).attr('src')).get();
+			posts.push({ href, images, imagesHot });
+		});
 
-			const posts = await page.$$eval('.messagetable', rows => rows.map(row => ({
-				href: row.querySelector('.message .right a') ? row.querySelector('.message .right a').getAttribute('href') : null,
-				images: Array.from(row.querySelectorAll('img')).map(img => img.getAttribute('src')),
-				imagesHot: Array.from(row.querySelectorAll('table.spoiler img')).map(img => img.getAttribute('src'))
-			})));
+		const result = this.getObj({ posts });
 
-			const result = this.getObj({ posts });
-
-			if (result.imagesObj.length === 0) {
-				this.currentPage = parseInt(this.currentPage) - 1;
-				return this.getImages();
-			}
-
-			return result;
-		} finally {
-			await browser.close();
+		if (result.imagesObj.length === 0) {
+			this.currentPage = parseInt(this.currentPage) - 1;
+			return this.getImages();
 		}
+
+		return result;
 	},
 
 	getObj: function (obj) {
