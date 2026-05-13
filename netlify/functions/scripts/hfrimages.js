@@ -1,6 +1,5 @@
 'use strict';
 
-const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
 const BASE_URL = 'http://forum.hardware.fr/hfr/Discussions/Loisirs/images-etonnantes-cons-sujet_78667_';

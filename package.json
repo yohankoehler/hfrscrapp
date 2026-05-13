@@ -32,7 +32,6 @@
     "justifiedGallery": "^3.8.1",
     "magnific-popup": "^1.1.0",
     "morgan": "^1.9.1",
-    "node-fetch": "^2.7.0",
     "serve-favicon": "^2.5.0",
     "serverless-http": "^3.2.0"
   },
