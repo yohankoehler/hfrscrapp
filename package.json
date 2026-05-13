@@ -31,10 +31,9 @@
     "justifiedGallery": "^3.8.1",
     "magnific-popup": "^1.1.0",
     "morgan": "^1.9.1",
-    "q": "^1.5.1",
+    "playwright": "^1.60.0",
     "serve-favicon": "^2.5.0",
-    "serverless-http": "^3.2.0",
-    "x-ray": "^2.3.3"
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "bower": "^1.8.8",

@@ -9,36 +9,48 @@ var gallery = require("../scripts/gallery");
 express().use(express.static(path.join(__dirname, "public")));
 express().use("/.netlify/functions/server", router);
 
-router.get("/", function (req, res) {
-  var hf = new hfrImages({ page: "last" });
-
-  hf.getImages(req.params.page).then(function (images) {
+router.get("/", async function (req, res) {
+  try {
+    var hf = new hfrImages({ page: "last" });
+    var images = await hf.getImages();
     res.render("imagesInfiniteScroll", images);
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur lors du chargement des images");
+  }
 });
 
-router.get("/hot", function (req, res) {
-  var hf = new hfrImages({ page: "last" });
-
-  hf.getImages(req.params.page).then(function (images) {
+router.get("/hot", async function (req, res) {
+  try {
+    var hf = new hfrImages({ page: "last" });
+    var images = await hf.getImages();
     res.render("imagesHotInfiniteScroll", images);
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur lors du chargement des images");
+  }
 });
 
-router.get("/page/:page", function (req, res) {
-  var hf = new hfrImages({ page: req.params.page });
-
-  hf.getImages(req.params.page).then(function (images) {
+router.get("/page/:page", async function (req, res) {
+  try {
+    var hf = new hfrImages({ page: req.params.page });
+    var images = await hf.getImages();
     res.render("images", images);
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur lors du chargement des images");
+  }
 });
 
-router.get("/hot/page/:page", function (req, res) {
-  var hf = new hfrImages({ page: req.params.page });
-
-  hf.getImages(req.params.page).then(function (images) {
+router.get("/hot/page/:page", async function (req, res) {
+  try {
+    var hf = new hfrImages({ page: req.params.page });
+    var images = await hf.getImages();
     res.render("imagesHotInfiniteScroll", images);
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur lors du chargement des images");
+  }
 });
 
 router.get("/gallery", function (req, res) {
@@ -46,8 +58,6 @@ router.get("/gallery", function (req, res) {
   var ga = new gallery({
     folder: "/Users/yohan.koehler/Developpement/scrapper/ykr/public/img",
   });
-  //var imgs = ;
-
   res.render("gallery", { imgs: ga.getImages() });
 });
 
