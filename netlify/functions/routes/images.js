@@ -16,7 +16,7 @@ router.get("/", async function (req, res) {
     res.render("imagesInfiniteScroll", images);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Erreur lors du chargement des images");
+    res.status(500).send("Erreur: " + err.message);
   }
 });
 
